@@ -1,0 +1,3 @@
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.github.jcommon.spi.internals.SpringProviderFactory

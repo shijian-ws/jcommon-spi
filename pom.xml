@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<project
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <description>框架 - SPI包</description>
+
+    <groupId>com.github.shijianws</groupId>
+    <artifactId>jcommon-spi</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <!-- 跳过Maven测试 -->
+        <maven.test.skip>true</maven.test.skip>
+
+        <bom.version>0.1-SNAPSHOT</bom.version>
+
+        <repository.release.url>http://domain:port/repository/maven-release</repository.release.url>
+        <repository.snapshot.url>http://domain:port/repository/maven-snapshots</repository.snapshot.url>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- BOM -->
+            <dependency>
+                <groupId>com.github.shijianws</groupId>
+                <artifactId>framework-bom</artifactId>
+                <version>${bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Util -->
+        <dependency>
+            <groupId>com.github.shijianws</groupId>
+            <artifactId>jcommon-util</artifactId>
+        </dependency>
+        <!-- Log -->
+        <dependency>
+            <groupId>com.github.shijianws</groupId>
+            <artifactId>jcommon-logging</artifactId>
+        </dependency>
+
+        <!-- Spring Context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <!-- 只在编译本项目时使用, 依赖本项目的其他项目需要手动引入 -->
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- 将源码包放入仓库 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- 指定deploy的发布仓库地址 -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>${repository.snapshot.url}</url>
+        </snapshotRepository>
+        <repository>
+            <id>release</id>
+            <url>${repository.release.url}</url>
+        </repository>
+    </distributionManagement>
+</project>
